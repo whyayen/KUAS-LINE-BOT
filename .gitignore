@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+####################
+## Project Setting
+####################
+src/website/config.yml
+src/website/webapp.wsgi
+
