@@ -17,8 +17,8 @@ with open(os.path.dirname(__file__) + "/config.yml", 'r') as f:
 
 
 URL = "http://line.yanjun.tw"
-LINELOGIN = "https://access.line.me/oauth2/v2.1/authorize?response_type=code\
-        &client_id=%s&redirect_uri=%s&state=%s&scope=profile"
+LINELOGIN = "https://access.line.me/oauth2/v2.1/authorize?response_type=code"\
+            "&client_id=%s&redirect_uri=%s&state=%s&scope=profile"
 
 
 @app.route("/linelogin", methods=['GET'])
@@ -54,7 +54,7 @@ def lineLogin():
     except:
         randomStr = ''
         for x in range(10):
-            randomStr.join(random.choice(string.ascii_letters + string.digits))
+            randomStr += random.choice(string.ascii_letters + string.digits)
 
         return redirect(LINELOGIN % (CONFIG['client_id'],
                                      URL + "/linelogin",
@@ -99,8 +99,7 @@ def index():
     if(request.cookies.get('userID') is None):
         randomStr = ''
         for x in range(10):
-            randomStr.join(random.choice(string.ascii_letters +
-                           string.digits))
+            randomStr += random.choice(string.ascii_letters + string.digits)
 
         return redirect(LINELOGIN % (CONFIG['client_id'],
                                      URL + "/linelogin",
@@ -112,6 +111,21 @@ def index():
         return redirect(URL + "/login")
 
     return render_template("index.html")
+
+
+@app.route('/logout')
+def logout():
+    if(request.cookies.get('userID') is None or
+       request.cookies.get('stdID') is None or
+       request.cookies.get('apiKey') is None):
+
+        return redirect('/')
+    else:
+        response = make_response(redirect('/'))
+        response.set_cookie('userID', "", 0)
+        response.set_cookie('stdID', "", 0)
+        response.set_cookie('apiKey', "", 0)
+        return response
 
 
 if __name__ == "__main__":
