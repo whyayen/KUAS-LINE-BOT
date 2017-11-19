@@ -93,5 +93,26 @@ def login():
         return render_template("login.html", errormsg="")
 
 
+@app.route("/")
+def index():
+
+    if(request.cookies.get('userID') is None):
+        randomStr = ''
+        for x in range(10):
+            randomStr.join(random.choice(string.ascii_letters +
+                           string.digits))
+
+        return redirect(LINELOGIN % (CONFIG['client_id'],
+                                     URL + "/linelogin",
+                                     randomStr))
+
+    elif(request.cookies.get('stdID') is None or
+         request.cookies.get('apiKey') is None):
+
+        return redirect(URL + "/login")
+
+    return render_template("index.html")
+
+
 if __name__ == "__main__":
     app.run()
