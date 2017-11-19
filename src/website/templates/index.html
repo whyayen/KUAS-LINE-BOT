@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Crazy Dog</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="static/css/index.css">
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="main.js"></script>
+</head>
+<body>
+	<div data-role="page" id="index" data-theme="a" data-ajax="false">
+		<div data-role="header">
+			<p class="title">Crazy Dog</p>
+			<a href="/logout" data-role="button" data-inline="true" class="ui-btn-right" data-ajax="false">登出</a>
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#" class="ui-btn-active ui-state-persist">
+							<i class="fa fa-bus"></i>
+							<div>預約校車</div>
+						</a>
+					</li>
+
+					<li>
+						<a href="http://fs.mis.kuas.edu.tw/~s1104137120/test/dist/about.html">
+							<i class="fa fa-users"></i>
+							<div>關於我們</div>
+						</a>
+					</li>
+
+					<li>
+						<a href="http://fs.mis.kuas.edu.tw/~s1104137120/test/dist/donate.html">
+							<i class="fa fa-usd"></i>
+							<div>贊助我們</div>
+						</a>
+					</li>
+
+					<li>
+						<a href="https://www.facebook.com/">
+							<i class="fa fa-facebook"></i>
+							<div>意見反饋</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="main" class="ui-content">
+			<ul data-role="listview" data-inset="true">
+				{% for i in day %}
+				<li data-role="list-driver" data-theme="b" class="title"><a href="#reservation{{loop.index}}" data-rel="dialog">星期{{i}} </a><span class="ui-li-count">2</span></li>
+					<li><a href="#"><h2>去程</h2><p>7:00 建工->燕巢</p></a></li>
+					<li><a href="#"><h2>回程</h2><p>18:00 燕巢->建工</p></a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% for i in day %}
+	<div data-role="page" id="reservation{{loop.index}}">
+		<div data-role="header" class="res-title">
+			<h1>星期{{i}}</h1>
+		</div>
+		<div data-role="ui-content" data-theme="b">
+			<div data-role="collapsible">
+				<h4>建工</h4>
+				<ul data-role="listview" id="jian">
+					{% if loop.index < 5 %}
+							 {% for j in week_table[0] %}
+							 <li><a href="#">{{j}}</a></li>
+							 {% endfor %}
+					{% else %}
+							 {% for j in weekend_table[0] %}
+							 <li><a href="#">{{j}}</a></li>
+							 {% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+			<div data-role="collapsible">
+				<h4>燕巢</h4>
+				<ul data-role="listview" id="yan">
+					{% if loop.index < 5 %}
+							 {% for j in week_table[1] %}
+							 <li><a href="#">{{j}}</a></li>
+							 {% endfor %}
+					{% else %}
+							 {% for j in weekend_table[1] %}
+							 <li><a href="#">{{j}}</a></li>
+							 {% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+			<a href="#" data-role="button" data-rel="back">返回</a>
+		</div>
+	</div>
+	{% endfor %}
+</body>
+</html>

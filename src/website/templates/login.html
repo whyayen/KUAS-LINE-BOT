@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Crazy Dog</title>
+
+	<link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+</head>
+<body>
+<div class="bg"  >
+	<div class="container">
+		<div class="divform">		
+		<form role="form" class="login" action="/login" method="post">
+			<p class="form-title">Login</p>
+			<div>
+
+				<div class="inner-addon left-addon">
+			        <i class="glyphicon glyphicon-user"></i>
+			        <input type="text" class="form-control" placeholder="StudentID" name="username" max-length="10" required autofocus/>
+			    </div>
+			    	
+				
+				<div class="inner-addon left-addon">
+				    <i class="glyphicon glyphicon-lock"></i>
+				    <input type="Password" class="form-control" placeholder="Password" name="password" max-length="7" required />
+				</div>
+				<div class="checkbox">
+					<label style="color: #FFF;">
+						<input type="checkbox" name="accept"/>我同意<a href="#">個人資料蒐集聲明、服務條款</a>
+					</label>
+					<span style="color: #FF0000;">{{errormsg}}</span>
+				</div>
+				
+				<input type="submit" class="btn btn-primary btn-sm" value="Sign in" />	
+			</div>
+		</form>
+		</div>
+		
+		
+	</div>
+	<footer class="navbar-fixed-bottom">
+		<div class="copyright">
+			<span>photo by 林書緯 - 感謝高應大攝影社協助提供</span>
+		</div>
+	</footer>
+</div>
+
+</body>
+</html>
