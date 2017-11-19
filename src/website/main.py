@@ -60,5 +60,38 @@ def lineLogin():
                                      URL + "/linelogin",
                                      randomStr))
 
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if(request.cookies.get('userID') is None):
+        return redirect('/')
+    elif(request.cookies.get('stdID') is not None and
+         request.cookies.get('apiKey') is not None):
+        return redirect('/')
+
+    if(request.method == 'POST'):
+
+        if(not request.form.get('accept') or
+           request.form.get('accept') is None):
+
+            return render_template("login.html", errormsg="請同意服務條款")
+
+        else:
+            login = ikuaslogin(request.form.get('username'),
+                               request.form.get('password'))
+
+            if(login.get_userKey() == ""):
+                return render_template("login.html", errormsg="帳號或密碼錯誤")
+            else:
+                response = make_response(redirect(url_for('index')))
+                response.set_cookie('stdID',
+                                    request.form.get('username'),
+                                    2592000*6)
+                response.set_cookie('apiKey', login.get_userKey(), 2592000*6)
+                return response
+    else:
+        return render_template("login.html", errormsg="")
+
+
 if __name__ == "__main__":
     app.run()
